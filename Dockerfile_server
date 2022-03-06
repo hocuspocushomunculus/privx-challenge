@@ -1,0 +1,15 @@
+FROM python:3.9
+
+ENV WORKSPACE=/opt/rest_api_server
+
+WORKDIR $WORKSPACE
+
+# Copy files for rest api server
+COPY ./assignment/server $WORKSPACE/server
+COPY ./assignment/requirements.txt $WORKSPACE/
+
+# Install dependencies
+RUN set -x \
+    && pip install -r requirements.txt \
+    && apt update \
+    && apt install -y iptables

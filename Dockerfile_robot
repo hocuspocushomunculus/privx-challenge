@@ -1,0 +1,8 @@
+FROM python:3.9
+
+ENV WORKSPACE=/opt/robot_tests
+
+WORKDIR $WORKSPACE
+
+# Install dependencies
+RUN python3 -m pip install robotframework robotframework-requests
