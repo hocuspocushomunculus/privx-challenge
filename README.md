@@ -2,6 +2,37 @@
 
 ## **Repository structure**
 
+```
+.
+├── assignment
+│   ├── README.txt
+│   ├── requirements.txt
+│   └── server
+│       ├── items.py
+│       └── server.py
+├── Dockerfile_robot
+├── Dockerfile_server
+├── notes.md
+├── privx.robot
+├── README.md
+├── resources
+│   ├── lib_privx.py
+│   └── variables.py
+└── results
+    ├── log.html
+    ├── output.xml
+    └── report.html
+```
+
+## **Test Cases**
+
+- User is able to list all items
+- User is able to filter items
+- User is able to get item by name
+- User is able to add new item
+- User is able to delete an item by name
+
+No missing tests from the server implementation point of view, all API endpoints have been included.
 
 
 ## **Usage (example instructions for Ubuntu 20.04)**
@@ -60,7 +91,22 @@ docker exec -it rest_api_server sysctl -w net.ipv4.conf.all.route_localnet=1 && 
 docker exec -it rest_api_server iptables -t nat -I PREROUTING -p tcp --dport 5000 -d $IP_ADDRESS/24 -j DNAT --to-destination 127.0.0.1:5000
 ```
 
+- We could have avoided this step if server.py had:
+
+```python
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
+
+# Instead of:
+if __name__ == '__main__':
+    app.run()
+
+# But the instructions said not to touch server.py implementation
+```
+
 ### **5. Run robot tests**
+
+- Thanks to the test setup keyword, we are able to run the suite consecutively multiple times
 
 ```bash
 export WORKSPACE="/opt/robot_tests" && \
